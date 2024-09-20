@@ -1,10 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/nukestarmaster/Pokedex.pokeapi"
+)
 
 func commandMap() error {
 	fmt.Println("Map goes here")
-	return nil
+	locations, err := ListLocationAreas(false)
+
 }
 
 func commandMapB() error {
