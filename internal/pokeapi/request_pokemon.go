@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-func (c *Config) ReqPokemon(name string) ([]Pokemon, error) {
+func (c *Config) ReqPokemon(name string) (Pokemon, error) {
 	endpoint := "pokemon/"
 
 	fullURL := baseURL + endpoint + name
 
-	var pokemon []Pokemon
+	var pokemon Pokemon
 
 	data, ok := c.Cache.Get(fullURL)
 	if !ok {
