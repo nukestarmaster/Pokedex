@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"github.com/nukestarmaster/Pokedex/internal/pokeapi"
 )
 
-func Repl() {
+func Repl(cfg *pokeapi.Config) {
 	myscanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Printf("> ")
@@ -24,7 +25,10 @@ func Repl() {
 			fmt.Println("invalid command")
 			continue
 		}
-		command.callback()
+		err := command.callback(cfg, tokens[1:])
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
 
@@ -37,7 +41,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(cfg *pokeapi.Config, args []string) error
 }
 
 
@@ -62,6 +66,11 @@ func getCommands() map[string]cliCommand {
 			name:		 "map back",
 			description: "Prints the previous list of 20 areas. Returns an error if map has not been called yet",
 			callback: 	 commandMapB,
+		},
+		"explore": {
+			name:		 "explore",
+			description: "Explores the chosen area and lists the pokemon found there",
+			callback: 	 commandExplore,
 		},
 	}
 } 

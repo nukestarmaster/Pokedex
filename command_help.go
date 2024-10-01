@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-func commandHelp() error {
+	"github.com/nukestarmaster/Pokedex/internal/pokeapi"
+)
+
+func commandHelp(cfg *pokeapi.Config, args []string) error {
 	commands := getCommands()
 	fmt.Println("Showing Help Menu")
 	for _, c := range commands {
